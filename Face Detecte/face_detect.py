@@ -6,8 +6,8 @@ from PIL import Image
  
  
 #入力ファイルのパスを指定
-in_jpg = "./bing/busu/"
-out_jpg = "./bing/cutted_busu_images/"
+in_jpg = "path"
+out_jpg = "directory path"
  
 #リストで結果を返す関数
 def get_file(dir_path):
@@ -21,7 +21,7 @@ for i in pic:
     image_gs = cv2.imread(in_jpg + i)
  
     # 顔認識用特徴量ファイルを読み込む --- （カスケードファイルのパスを指定）
-    cascade = cv2.CascadeClassifier("C:/Users/nnets/AppData/Local/conda/conda/envs/tensorFlow/Library/etc/haarcascades/haarcascade_frontalface_alt.xml")
+    cascade = cv2.CascadeClassifier("path/haarcascade_frontalface_alt.xml")
     
     # 顔認識の実行
     face_list = cascade.detectMultiScale(image_gs,scaleFactor=1.1,minNeighbors=1,minSize=(1,1))
