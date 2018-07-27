@@ -6,6 +6,7 @@ import configparser # for Python3
 import urllib
 import re
 import datetime
+from time import sleep
 
 import bing_util
 
@@ -61,7 +62,7 @@ if __name__ == '__main__':
     url_dir_path = os.path.join(save_dir_path, 'url')
     bing_util.make_dir(url_dir_path)
 
-    num_imgs_required = 1000 # Number of images you want.
+    num_imgs_required = 10000 # Number of images you want.
     num_imgs_per_transaction =150 # default 30, Max 150 images
     
 
@@ -83,10 +84,15 @@ if __name__ == '__main__':
         num_imgs_required = total_count
 
     offset_count = math.ceil(num_imgs_required / num_imgs_per_transaction)
+    i = 0 # 3コール毎に処理を1秒待つためのカウント
     print('offset_count=%d' % offset_count)
     for offset in range(1, offset_count):
         params = get_params(search_term, num_imgs_per_transaction, offset)
         search_results = get_search_results(search_url, headers, params)
+        i += 1
+        if i%3 == 0 :
+            sleep(1)
+            print ("1秒待ったよ！")
 
         print ("len=%d" % len(search_results["value"]))
         save_urls(search_results["value"], filepath)
